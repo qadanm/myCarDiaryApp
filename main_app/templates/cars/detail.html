@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+<<<<<<< HEAD
 {% block content %}
 
+=======
+>>>>>>> cfe3d8e5f880ca9407d09cb72a6f882e5539a890
 
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/car-details.css' %}">
 
 <div class="car-container">
   <div class="container-content">
+
     <div class="list">
       <span class="car-title">{{car.make}} {{ car.model }} {{car.year}}</span>
       <ul>
@@ -35,23 +41,20 @@
       <a href="{% url 'cars_delete' car.id %}">Delete</a>
     </div>
   </div>
+
+  {% for photo in car.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}">
+  {% empty %}
+    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+  {% endfor %}
+  <form action="{% url 'add_photo' car.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" class="btn" value="Upload Photo">
+  </form>
 </div>
-      <!-- Insert photo markup below this comment -->
-
-
-{% for photo in car.photo_set.all %}
-  <img class="responsive-img card-panel" src="{{photo.url}}">
-{% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-{% endfor %}
-
-<form action="{% url 'add_photo' car.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-  {% csrf_token %}
-  <input type="file" name="photo-file">
-  <br><br>
-  <input type="submit" class="btn" value="Upload Photo">
-</form>
-
+  
 
 <h1 style="font-size: 3em;">CAR DETAILS</h1>
 <a href="" style="font-size: 2em;">ADD MAINT</a>
@@ -61,4 +64,98 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/car-details.css' %}">
 
+<<<<<<< HEAD
+=======
+
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{car.year}} {{car.make}} {{ car.model }}'s Features</h3>
+    {% if car.features.count %}
+      {% for feature in car.features.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <span style="feature: {{ features.feature }}">{{ feature.feature }}</span> {{ features.wishlist }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_feature' car.id feature.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Features :(</h5>
+    {% endif %}
+  </div>
+
+  <h3>Available Features</h3>
+  {% if features.count %}
+    {% for feature in features.all %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            <span >{{ feature.feature }}</span>
+          </span>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'assoc_feature' car.id feature.id %}" method="post">
+              {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h5>{{car.year}} {{car.make}} {{ car.model }} Already Has All Features Available</h5>
+  {% endif %}
+</div>
+</div>
+
+
+
+
+
+  {% if car.maintenance %}
+  <div class="card-panel teal-text center-align">{{car.year}} {{car.make}} {{car.model}} had this maintenance done</div>
+{% else %}
+  <div class="card-panel red-text center-align">{{car.year}} {{car.make}} {{car.model}} might need maintenance</div>
+{% endif %}
+<table class="striped">
+  <thead>
+    <tr><th>Date</th><th>Maintenance</th></tr>
+  </thead>
+  <tbody>
+    {% for maintenance in car.maintenance.all %}
+      <tr>
+        <td>{{maintenance.date}}</td>
+        <td>{{maintenance.type}}</td>
+      </tr>
+    {% endfor %}
+
+
+
+
+
+
+
+
+    <script>
+      var dateEl = document.getElementById('id_date');
+      M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+      });
+    
+      var selectEl = document.getElementById('id_maintenance');
+      M.FormSelect.init(selectEl);
+    </script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/car-detail.css' %}">
+
+>>>>>>> cfe3d8e5f880ca9407d09cb72a6f882e5539a890
 {% endblock %}

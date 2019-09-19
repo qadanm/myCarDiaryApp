@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Car List</h1>
+<<<<<<< HEAD
 
 <!-- {% for car in car_list %}
   <a href="{% url 'cars_detail' car.id %}">
@@ -12,13 +13,14 @@
  -->
 
 <!-- <h1 style="font-size: 3em;">MY CARS</h1>
+=======
+>>>>>>> cfe3d8e5f880ca9407d09cb72a6f882e5539a890
 {% for car in cars %}
   <a href="{% url 'detail' car.id %}">
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ car.year }} {{ car.make}} {{ car.model }}</span>
-
-
+          
         </div>
     </div>
   </a>
@@ -46,8 +48,11 @@
   {% endfor %}
 </div>
 
+<<<<<<< HEAD
 <!-- had to add another endfor for some reason -->
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+=======
+>>>>>>> cfe3d8e5f880ca9407d09cb72a6f882e5539a890
 
 {% endblock %}
